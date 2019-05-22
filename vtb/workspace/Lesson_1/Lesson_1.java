@@ -1,4 +1,4 @@
-package Lesson_1;
+package vtb.workspace.Lesson_1;
 
 import java.util.HashMap;
 
