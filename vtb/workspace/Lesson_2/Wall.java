@@ -1,4 +1,4 @@
-package vtb.workspace.Lesson_2;
+package vtb.workspace.lesson_2;
 
 public class Wall extends DoIt {
     private double height;
