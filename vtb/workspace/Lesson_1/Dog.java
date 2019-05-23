@@ -1,4 +1,4 @@
-package vtb.workspace.Lesson_1;
+package vtb.workspace.lesson_1;
 
 public class Dog extends Animal{
     private final String type = "Собак";
