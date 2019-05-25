@@ -5,12 +5,8 @@ public class Orange extends Fruit {
     private final String type = "Orange";
 
     @Override
-    public int getWeight() {
-        return weight;
-    }
+    public int getWeight() { return weight; }
 
     @Override
-    public String getType() {
-        return type;
-    }
+    public String getType() { return type; }
 }
