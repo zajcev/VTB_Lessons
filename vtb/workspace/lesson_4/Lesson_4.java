@@ -37,7 +37,6 @@ class DoSomeWithList<T> {
     }
 
     public List convertToArray(T[] arr) {
-        List<T> result = Arrays.asList(arr);
-        return result;
+        return Arrays.asList(arr);
     }
 }
