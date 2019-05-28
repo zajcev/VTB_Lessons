@@ -4,30 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Box<T extends Fruit> {
-    private String type;
-    private List<T> place = new ArrayList<>();
+    T obj;
+    private List<T> place;
 
+    public Box(T obj){
+        this.obj = obj;
+        this.place = new ArrayList<>();
+    }
 
-    public void put(T obj) {
-        if (place.isEmpty()) type = obj.getType();
-        if (type == obj.getType()) place.add(obj);
-        else System.out.println("В коробке другие фрукты");
+    public void put(T obj){
+        place.add(obj);
     }
 
     public int getWeight() {
-        if (place.isEmpty()) return 0;
         return place.get(0).getWeight() * place.size();
     }
 
-    public boolean compare(Box box) {
+    public boolean compare(Box box){
         return this.getWeight() == box.getWeight();
     }
 
-    public void replace(Box other) {
-        if (type == other.type) {
-            other.place.addAll(place);
-            place.clear();
-        } else
-            System.out.println("Яблоки с апельсинками мешать нельзя");
+    public void replace(Box <? super T> other) {
+                other.place.addAll(place);
+                place.clear();
     }
 }
