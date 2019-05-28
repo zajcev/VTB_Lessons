@@ -14,7 +14,6 @@ public class Lesson_6 {
     }
 
     private static void createArray(){
-
         for (int i = 0; i < SIZE ; i++) {
             arr[i] = 1;
         }
@@ -24,6 +23,7 @@ public class Lesson_6 {
         }
         System.out.println(System.currentTimeMillis() - a);
     }
+
     private static void withThreads(){
         float[] a1 = new float[HALF];
         float[] a2 = new float[HALF];
@@ -45,14 +45,17 @@ public class Lesson_6 {
                 a2[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
         });
+
         thread1.start();
         thread2.start();
+
         try {
             thread1.join();
             thread2.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         System.arraycopy(a1,0,arr,0,HALF);
         System.arraycopy(a2,0,arr,HALF,HALF);
         System.out.println("В двух потоках "+(System.currentTimeMillis() - a));
