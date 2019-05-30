@@ -37,12 +37,12 @@ public class Lesson_6 {
 
         Thread thread1 = new Thread(() -> {
             for (int i = 0; i < HALF; i++) {
-                a1[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+                a1[i] = (float)(a1[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
             }
         });
         Thread thread2 = new Thread(() -> {
-            for (int i = 0; i < HALF; i++) {
-                a2[i] = (float)(arr[i] * Math.sin(0.2f + i / 5) * Math.cos(0.2f + i / 5) * Math.cos(0.4f + i / 2));
+            for (int i = 0,j = HALF; i < HALF; i++,j++) {
+                a2[i] = (float)(a2[i] * Math.sin(0.2f + j / 5) * Math.cos(0.2f + j / 5) * Math.cos(0.4f + j / 2));
             }
         });
         thread1.start();
