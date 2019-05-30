@@ -1,17 +1,17 @@
 package vtb.workspace.lesson_7;
 
 import java.util.concurrent.Semaphore;
+import static vtb.workspace.lesson_7.MainClass.CARS_COUNT;
 
 /**
  * @author Mikhail Zaitsev
  */
 public class Tunnel extends Stage {
-    private Semaphore semaphore;
+    private Semaphore semaphore = new Semaphore(CARS_COUNT/2);
 
-    public Tunnel(Semaphore semaphore) {
+    public Tunnel() {
         this.length = 80;
         this.description = "Тоннель " + length + " метров";
-        this.semaphore = semaphore;
     }
     @Override
     public void go(Car c) {
