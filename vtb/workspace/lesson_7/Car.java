@@ -17,6 +17,7 @@ public class Car implements Runnable{
     private Race race;
     private int speed;
     private String name;
+
     public String getName() {
         return name;
     }
@@ -46,7 +47,8 @@ public class Car implements Runnable{
             race.getStages().get(i).go(this);
         }
         countDownLatch.countDown();
-        if (countDownLatch.getCount() == (CARS_COUNT - 1)) System.out.println(this.name + " WIN");
+        if (countDownLatch.getCount() == CARS_COUNT - 1)
+            System.out.println(this.name + " WIN");
     }
 
 }
