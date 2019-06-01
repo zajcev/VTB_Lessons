@@ -24,8 +24,6 @@ public class Lesson_8 {
 
     private static void averageSalary(Worker[] workers) {
         double averageSalary = Arrays.stream(workers)
-                .collect(Collectors.toList())
-                .stream()
                 .mapToInt(Worker::getSalary)
                 .average()
                 .getAsDouble();
