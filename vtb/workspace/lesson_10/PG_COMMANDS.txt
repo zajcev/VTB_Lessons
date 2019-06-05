@@ -1,0 +1,49 @@
+Создайте таблицу студенты (students): id, имя, серия паспорта, номер паспорта;
+Пара серия-номер паспорта должны быть уникальны в таблице Студенты;
+
+CREATE TABLE students (id SERIAL PRIMARY KEY,name TEXT NOT NULL,
+ps NUMERIC NOT NULL UNIQUE, pn NUMERIC NOT NULL UNIQUE);
+
+Создайте таблицу Предметы (subjects): id, название предмета;
+
+CREATE TABLE subjects (id SERIAL PRIMARY KEY,subject TEXT NOT NULL UNIQUE);
+
+Создайте таблицу Успеваемость (progress): id, студент, предмет, оценка;
+Оценка может находиться в пределах от 2 до 5;
+При удалении студента из таблицы, вся его успеваемость тоже должна быть удалена;
+
+CREATE TABLE progress (
+id SERIAL PRIMARY KEY,
+student INTEGER,
+subject INTEGER,
+FOREIGN KEY (student) REFERENCES students (id) ON DELETE CASCADE,
+FOREIGN KEY (subject)  REFERENCES subjects (id) ON DELETE CASCADE,
+score INTEGER CHECK(score <= 5 AND score >= 2));
+
+Вывести список студентов, сдавших определенный предмет, на оценку выше 3;
+
+SELECT students.name,subjects.subject,progress.score 
+FROM students
+JOIN progress ON progress.student = students.id 
+JOIN subjects ON subjects.id = progress.subject
+WHERE progress.score >= 3 
+AND subjects.subject = 'test2';
+
+Посчитать средний балл по определенному предмету;
+
+SELECT AVG(score) FROM progress 
+JOIN subjects ON subjects.id = progress.subject AND subjects.subject = 'test2';
+
+Посчитать средний балл по определенному студенту;
+
+SELECT AVG(score) FROM progress 
+JOIN subjects ON subjects.id = progress.subject 
+JOIN students ON students.id = progress.student AND students.name = 'test5';
+
+Найти три предмета, которые сдали наибольшее количество студентов;
+
+SELECT subjects.subject FROM subjects
+JOIN progress ON progress.subject = subjects.id AND score >= 3
+GROUP BY subjects.subject
+LIMIT 3;
+ 
