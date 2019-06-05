@@ -1,16 +1,16 @@
-Создайте таблицу студенты (students): id, имя, серия паспорта, номер паспорта;
-Пара серия-номер паспорта должны быть уникальны в таблице Студенты;
+п»їРЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ СЃС‚СѓРґРµРЅС‚С‹ (students): id, РёРјСЏ, СЃРµСЂРёСЏ РїР°СЃРїРѕСЂС‚Р°, РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р°;
+РџР°СЂР° СЃРµСЂРёСЏ-РЅРѕРјРµСЂ РїР°СЃРїРѕСЂС‚Р° РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ СѓРЅРёРєР°Р»СЊРЅС‹ РІ С‚Р°Р±Р»РёС†Рµ РЎС‚СѓРґРµРЅС‚С‹;
 
 CREATE TABLE students (id SERIAL PRIMARY KEY,name TEXT NOT NULL,
 ps NUMERIC NOT NULL UNIQUE, pn NUMERIC NOT NULL UNIQUE);
 
-Создайте таблицу Предметы (subjects): id, название предмета;
+РЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ РџСЂРµРґРјРµС‚С‹ (subjects): id, РЅР°Р·РІР°РЅРёРµ РїСЂРµРґРјРµС‚Р°;
 
 CREATE TABLE subjects (id SERIAL PRIMARY KEY,subject TEXT NOT NULL UNIQUE);
 
-Создайте таблицу Успеваемость (progress): id, студент, предмет, оценка;
-Оценка может находиться в пределах от 2 до 5;
-При удалении студента из таблицы, вся его успеваемость тоже должна быть удалена;
+РЎРѕР·РґР°Р№С‚Рµ С‚Р°Р±Р»РёС†Сѓ РЈСЃРїРµРІР°РµРјРѕСЃС‚СЊ (progress): id, СЃС‚СѓРґРµРЅС‚, РїСЂРµРґРјРµС‚, РѕС†РµРЅРєР°;
+РћС†РµРЅРєР° РјРѕР¶РµС‚ РЅР°С…РѕРґРёС‚СЊСЃСЏ РІ РїСЂРµРґРµР»Р°С… РѕС‚ 2 РґРѕ 5;
+РџСЂРё СѓРґР°Р»РµРЅРёРё СЃС‚СѓРґРµРЅС‚Р° РёР· С‚Р°Р±Р»РёС†С‹, РІСЃСЏ РµРіРѕ СѓСЃРїРµРІР°РµРјРѕСЃС‚СЊ С‚РѕР¶Рµ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ СѓРґР°Р»РµРЅР°;
 
 CREATE TABLE progress (
 id SERIAL PRIMARY KEY,
@@ -20,7 +20,7 @@ FOREIGN KEY (student) REFERENCES students (id) ON DELETE CASCADE,
 FOREIGN KEY (subject)  REFERENCES subjects (id) ON DELETE CASCADE,
 score INTEGER CHECK(score <= 5 AND score >= 2));
 
-Вывести список студентов, сдавших определенный предмет, на оценку выше 3;
+Р’С‹РІРµСЃС‚Рё СЃРїРёСЃРѕРє СЃС‚СѓРґРµРЅС‚РѕРІ, СЃРґР°РІС€РёС… РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РїСЂРµРґРјРµС‚, РЅР° РѕС†РµРЅРєСѓ РІС‹С€Рµ 3;
 
 SELECT students.name,subjects.subject,progress.score 
 FROM students
@@ -29,18 +29,18 @@ JOIN subjects ON subjects.id = progress.subject
 WHERE progress.score >= 3 
 AND subjects.subject = 'test2';
 
-Посчитать средний балл по определенному предмету;
+РџРѕСЃС‡РёС‚Р°С‚СЊ СЃСЂРµРґРЅРёР№ Р±Р°Р»Р» РїРѕ РѕРїСЂРµРґРµР»РµРЅРЅРѕРјСѓ РїСЂРµРґРјРµС‚Сѓ;
 
 SELECT AVG(score) FROM progress 
 JOIN subjects ON subjects.id = progress.subject AND subjects.subject = 'test2';
 
-Посчитать средний балл по определенному студенту;
+РџРѕСЃС‡РёС‚Р°С‚СЊ СЃСЂРµРґРЅРёР№ Р±Р°Р»Р» РїРѕ РѕРїСЂРµРґРµР»РµРЅРЅРѕРјСѓ СЃС‚СѓРґРµРЅС‚Сѓ;
 
 SELECT AVG(score) FROM progress 
 JOIN subjects ON subjects.id = progress.subject 
 JOIN students ON students.id = progress.student AND students.name = 'test5';
 
-Найти три предмета, которые сдали наибольшее количество студентов;
+РќР°Р№С‚Рё С‚СЂРё РїСЂРµРґРјРµС‚Р°, РєРѕС‚РѕСЂС‹Рµ СЃРґР°Р»Рё РЅР°РёР±РѕР»СЊС€РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СѓРґРµРЅС‚РѕРІ;
 
 SELECT subjects.subject FROM subjects
 JOIN progress ON progress.subject = subjects.id AND score >= 3
